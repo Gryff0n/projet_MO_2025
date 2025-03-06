@@ -6,8 +6,11 @@ public class Main {
     public static void main(String[] args) {
         Ihm ihm = new Ihm();
         Controleur controleur = new Controleur(ihm);
-        Partie partie=new Partie();
+        controleur.create(ihm.demanderNomJoueur(1));
+        controleur.create(ihm.demanderNomJoueur(2));
+
+        /*Partie partie=new Partie();
         partie.initialiser();
-        System.out.println(partie);
+        System.out.println(partie);*/
     }
 }

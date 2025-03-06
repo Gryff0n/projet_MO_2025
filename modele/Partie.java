@@ -1,7 +1,7 @@
 package modele;
 
 public class Partie {
-    int[][] tableau = new int[8][8];
+    private int[][] tableau = new int[8][8];
 
     public void initialiser(){
         for(int i = 0; i < 8; i++){
