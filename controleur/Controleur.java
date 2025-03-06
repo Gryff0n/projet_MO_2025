@@ -16,4 +16,7 @@ public class Controleur {
         joueurs[nbJoueurs]=(new Joueur(nomJoueur));
         nbJoueurs++;
     }
+    public Joueur getJoueur(int numero){
+        return joueurs[numero-1];
+    }
 }

@@ -11,6 +11,7 @@ public class Main {
 
         /*Partie partie=new Partie();
         partie.initialiser();
-        System.out.println(partie);*/
+        System.out.println(partie);
+        System.out.println(controleur.getJoueur(1).getNom());*/
     }
 }
