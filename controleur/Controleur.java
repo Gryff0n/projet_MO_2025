@@ -50,13 +50,13 @@ public class Controleur {
         //vérifie la syntaxe du coup entré par le joueur
         if (coup.isEmpty() || coup.length() > 3 || coup.length() == 2) {
             //mauvaise longueur
-            System.out.println("Mauvaise syntaxe (longueur)");
+            ihm.afficher("Mauvaise syntaxe (longueur)");
             return false;
         }
         else if(coup.length() == 1) {
             if (coup.charAt(0) != 'P') {
                 //syntaxe du passage de tour incorrecte
-                System.out.println("Mauvaise syntaxe (!P)");
+                ihm.afficher("Mauvaise syntaxe (!P)");
                 return false;
             }
             //passage de tour correct syntaxiquement
@@ -65,7 +65,7 @@ public class Controleur {
         char[] charCoup = coup.toCharArray();
         if (!(Character.isDigit(charCoup[0]) && charCoup[1] == ' ' && Character.isAlphabetic(charCoup[2]))) {
                 //coup de bonne longueur mais mal écrit
-                System.out.println("Mauvaise syntaxe (syn)");
+                ihm.afficher("Mauvaise syntaxe (syn)");
                 return false;
         }
         return true;
