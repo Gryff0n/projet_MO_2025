@@ -27,9 +27,13 @@ public class Controleur {
             String coup;
             while (!partieTerminee){
                 boolean coupValide = false;
-                while (!coupValide){
+                boolean syntaxeValide = false;
+                while (!syntaxeValide || !coupValide) {
                     coup=ihm.demanderCoup(joueurs[joueurCourant].getNom());
-                    coupValide = partie.coupValide(coup,joueurCourant);
+                    syntaxeValide=syntaxCheck(coup);
+                    if (syntaxeValide) {
+                        coupValide = partie.coupValide(coup,joueurCourant);
+                    }
                 }
 
             }
@@ -41,6 +45,32 @@ public class Controleur {
         joueurs[nbJoueurs]=(new Joueur(nomJoueur));
         nbJoueurs++;
     }
+
+    public boolean syntaxCheck(String coup) {
+        //vérifie la syntaxe du coup entré par le joueur
+        if (coup.isEmpty() || coup.length() > 3 || coup.length() == 2) {
+            //mauvaise longueur
+            System.out.println("Mauvaise syntaxe (longueur)");
+            return false;
+        }
+        else if(coup.length() == 1) {
+            if (coup.charAt(0) != 'P') {
+                //syntaxe du passage de tour incorrecte
+                System.out.println("Mauvaise syntaxe (!P)");
+                return false;
+            }
+            //passage de tour correct syntaxiquement
+            return true;
+        }
+        char[] charCoup = coup.toCharArray();
+        if (!(Character.isDigit(charCoup[0]) && charCoup[1] == ' ' && Character.isAlphabetic(charCoup[2]))) {
+                //coup de bonne longueur mais mal écrit
+                System.out.println("Mauvaise syntaxe (syn)");
+                return false;
+        }
+        return true;
+    }
+
     public Joueur getJoueur(int numero){
         return joueurs[numero-1];
     }
