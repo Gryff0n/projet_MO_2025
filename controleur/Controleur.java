@@ -15,9 +15,8 @@ public class Controleur {
     }
 
     public void jouer() {
-        while (nbJoueurs < 2) {
-            create(ihm.demanderNomJoueur(nbJoueurs + 1));
-        }
+        create(ihm.demanderNomJoueur(nbJoueurs + 1),"Noire");
+        create(ihm.demanderNomJoueur(nbJoueurs + 1),"Blanc");
         boolean fini = false;
         while (!fini) {
             Partie partie = new Partie();
@@ -28,21 +27,33 @@ public class Controleur {
             while (!partieTerminee){
                 boolean coupValide = false;
                 boolean syntaxeValide = false;
-                while (!syntaxeValide || !coupValide) {
-                    coup=ihm.demanderCoup(joueurs[joueurCourant].getNom());
+                while (!coupValide) {
+                    coup=ihm.demanderCoup(joueurs[joueurCourant-1].getNom() + " ("+ joueurs[joueurCourant-1].getCouleur()+")").trim();
                     syntaxeValide=syntaxCheck(coup);
                     if (syntaxeValide) {
-                        coupValide = partie.coupValide(coup,joueurCourant);
+                        if (coup.charAt(0) == 'P'){
+                            coupValide = partie.coupImpossible(joueurCourant);
+                        }
+                        else {
+                            int l = Integer.parseInt(coup.substring(0,1))-1;
+                            int c = Character.getNumericValue(coup.charAt(2))-10;
+                            coupValide = partie.coupValide(l,c, joueurCourant);
+                            if (coupValide) {
+                                partie.jouerCoup(l,c,joueurCourant);
+                            }
+                        }
                     }
                 }
+                joueurCourant = joueurCourant % 2 + 1;
+                ihm.afficher(partie.toString());
 
             }
         }
 
     }
 
-    public void create(String nomJoueur) {
-        joueurs[nbJoueurs]=(new Joueur(nomJoueur));
+    public void create(String nomJoueur, String couleur) {
+        joueurs[nbJoueurs]=(new Joueur(nomJoueur,couleur));
         nbJoueurs++;
     }
 
@@ -50,6 +61,7 @@ public class Controleur {
         //vérifie la syntaxe du coup entré par le joueur
         if (coup.isEmpty() || coup.length() > 3 || coup.length() == 2) {
             //mauvaise longueur
+            ihm.afficher(coup);
             ihm.afficher("Mauvaise syntaxe (longueur)");
             return false;
         }
