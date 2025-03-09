@@ -6,6 +6,8 @@ import java.util.List;
 public class Partie {
     private int taille = 8;
     private int[][] tableau = new int[taille][taille];
+    private int nb_jetons_blancs =2;
+    private int nb_jetons_noirs = 2;
 
     public void initialiser(){
         for(int i = 0; i < taille; i++){
@@ -95,6 +97,8 @@ public class Partie {
     }
 
     public void jouerCoup(int l, int c, int numero){
+        if(numero==1) nb_jetons_noirs++;
+        else nb_jetons_blancs++;
         tableau[l][c]=numero;
         int adversaire = (numero == 1) ? 2 : 1;
         List<int[]> pionsPotentiels = new ArrayList<>();
@@ -140,13 +144,25 @@ public class Partie {
 
     public void retourPion(int l, int c, int numero){
         tableau[l][c]=numero;
+        if(numero==1) {
+            nb_jetons_noirs++;
+            nb_jetons_blancs--;
+        }
+        else {
+            nb_jetons_blancs++;
+            nb_jetons_noirs--;
+        }
+    }
+
+    public int[] getNb_jetons_plateau() {
+        return new int[]{nb_jetons_noirs, nb_jetons_blancs};
     }
 
     @Override
     public String toString() {
-        String s="   ";
+        String s="  ";
         for (int i = 0; i < taille; i++){
-            s+= " "+(char) ('A' + i)+" " ;
+            s+= "   "+(char) ('A' + i) ;
         }
         s+="\n";
         for (int i = 0; i < taille; i++) {

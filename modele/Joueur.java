@@ -17,4 +17,12 @@ public class Joueur {
     public String getCouleur() {
         return couleur;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void Victoire() {
+        score++;
+    }
 }

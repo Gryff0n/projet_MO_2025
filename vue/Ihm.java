@@ -18,4 +18,9 @@ public class Ihm {
         System.out.println("Entrez un coup (ex: '1 A' ou 'P' pour passer son tour si aucun coup possible) :");
         return sc.nextLine();
     }
+
+    public String redemPartie() {
+        System.out.println("Voulez vous redémarrer une partie (Y/N) ?\n>>>");
+        return sc.nextLine();
+    }
 }

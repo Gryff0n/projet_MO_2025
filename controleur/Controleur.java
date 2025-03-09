@@ -4,6 +4,8 @@ import modele.Joueur;
 import modele.Partie;
 import vue.Ihm;
 
+import java.util.Objects;
+
 public class Controleur {
     private Ihm ihm;
     private Joueur[] joueurs = new Joueur[2];
@@ -46,10 +48,42 @@ public class Controleur {
                 }
                 joueurCourant = joueurCourant % 2 + 1;
                 ihm.afficher(partie.toString());
+                if((partie.coupImpossible(1) && partie.coupImpossible(2)) || partie.getNb_jetons_plateau()[0]+partie.getNb_jetons_plateau()[1]==64 ){
+                    partieTerminee=true;
+                }
 
             }
+            ihm.afficher("PARTIE TERMINEE");
+            ihm.afficher("nombres de jetons noirs : "+partie.getNb_jetons_plateau()[0] );
+            ihm.afficher("nombres de jetons blancs : "+partie.getNb_jetons_plateau()[1] );
+            if (partie.getNb_jetons_plateau()[0]>partie.getNb_jetons_plateau()[1]) {
+                ihm.afficher("--Joueur "+joueurs[0].getNom()+" a gagné !!--");
+                joueurs[0].Victoire();
+            }
+            else if (partie.getNb_jetons_plateau()[0]<partie.getNb_jetons_plateau()[1]) {
+                ihm.afficher("--Joueur "+joueurs[1].getNom()+" a gagné !!--");
+                joueurs[1].Victoire();
+            }
+            else ihm.afficher("--EX AEQUO--");
+            String redem = "";
+            while (!Objects.equals(redem, "N") && !Objects.equals(redem, "Y")) {
+                redem = ihm.redemPartie();
+            }
+            if (redem.equals("N")) {
+                fini = true;
+            }
         }
-
+        ihm.afficher("FIN DE LA SESSION");
+        ihm.afficher("SCORES FINAUX");
+        ihm.afficher("Joueur 1 alias "+joueurs[0].getNom()+" : "+joueurs[0].getScore());
+        ihm.afficher("Joueur 2 alias "+joueurs[1].getNom()+" : "+joueurs[1].getScore());
+        if (joueurs[0].getScore()>joueurs[1].getScore()) {
+            ihm.afficher("------Vainqueur de la session : " + joueurs[0].getNom() + " !!------");
+        }
+        else if (joueurs[0].getScore()<joueurs[1].getScore()) {
+            ihm.afficher("------Vainqueur de la session : " + joueurs[1].getNom() + " !!------");
+        }
+        else ihm.afficher("------Les joueurs sont EX AEQUO !!------");
     }
 
     public void create(String nomJoueur, String couleur) {
