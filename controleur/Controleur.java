@@ -16,6 +16,10 @@ public class Controleur {
         this.ihm = ihm;
     }
 
+    /**
+     * Méthode principale du controlleur, gère le démarrage/redémarrage d'une partie, son déroulement général
+     * ainsi que les conditions de fin de partie et de fin de session.
+     */
     public void jouer() {
         create(ihm.demanderNomJoueur(nbJoueurs + 1),"Noire");
         create(ihm.demanderNomJoueur(nbJoueurs + 1),"Blanc");
@@ -35,6 +39,9 @@ public class Controleur {
                     if (syntaxeValide) {
                         if (coup.charAt(0) == 'P'){
                             coupValide = partie.coupImpossible(joueurCourant);
+                            if(!coupValide){
+                                ihm.afficher("Il vous reste des coups a jouer !");
+                            }
                         }
                         else {
                             int l = Integer.parseInt(coup.substring(0,1))-1;
@@ -42,6 +49,9 @@ public class Controleur {
                             coupValide = partie.coupValide(l,c, joueurCourant);
                             if (coupValide) {
                                 partie.jouerCoup(l,c,joueurCourant);
+                            }
+                            else {
+                                ihm.afficher("Coup illégal !");
                             }
                         }
                     }
@@ -86,11 +96,21 @@ public class Controleur {
         else ihm.afficher("------Les joueurs sont EX AEQUO !!------");
     }
 
+    /**
+     * méthode de création d'un joueur pour une nouvelle session.
+     * @param nomJoueur le nom du joueur créé
+     * @param couleur la couleur de ses pions
+     */
     public void create(String nomJoueur, String couleur) {
         joueurs[nbJoueurs]=(new Joueur(nomJoueur,couleur));
         nbJoueurs++;
     }
 
+    /**
+     * méthode de vérification de la synatxe du coup rentré par le joueur actuel.
+     * @param coup le coup entré par le joueur
+     * @return true si le coup est valide syntaxiquement, false sinon
+     */
     public boolean syntaxCheck(String coup) {
         //vérifie la syntaxe du coup entré par le joueur
         if (coup.isEmpty() || coup.length() > 3 || coup.length() == 2) {
@@ -117,6 +137,11 @@ public class Controleur {
         return true;
     }
 
+    /**
+     * getter des joueurs de la partie
+     * @param numero le numero du joueur (i.e. 1 pour indiquer le joueur 1)
+     * @return l'objet joueur indiqué
+     */
     public Joueur getJoueur(int numero){
         return joueurs[numero-1];
     }

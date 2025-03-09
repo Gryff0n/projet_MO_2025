@@ -9,6 +9,9 @@ public class Partie {
     private int nb_jetons_blancs =2;
     private int nb_jetons_noirs = 2;
 
+    /**
+     * méthode d'initialisation d'une partie de la session. Créer la disposition initiale du plateau d'othello.
+     */
     public void initialiser(){
         for(int i = 0; i < taille; i++){
             for(int j = 0; j < taille; j++){
@@ -25,8 +28,12 @@ public class Partie {
         }
     }
 
+    /**
+     * Verifie si aucun coup possible autour d'un pion adverse.
+     * @param numero le numéro du joueur dont on vérifie le coup.
+     * @return true si le joueur indiqué n'a pas de coup possible, false sinon.
+     */
     public boolean coupImpossible(int numero){
-        /* Verifie si aucun coup possible autour d'un pion adverse */
         boolean b = true;
         int i = 0;
         while (b && i < taille){
@@ -42,6 +49,13 @@ public class Partie {
         return b;
     }
 
+    /**
+     * Vérifie qu'un coup indiqué est légal au sein du jeu.
+     * @param l le numéro de ligne du coup
+     * @param c le numéro de colonne du coup
+     * @param numero le numéro du joueur jouant le coup
+     * @return true si le coup est légal, false sinon
+     */
     public boolean coupValide(int l, int c, int numero){
         // Si en dehors du plateau
         if (l < 0 || l > taille-1 || c < 0 || c > taille-1) {
@@ -54,6 +68,13 @@ public class Partie {
         else return false;
     }
 
+    /**
+     * Vérifie si depuis une case indiquée, un coup permettrait de retourner des pions adverses.
+     * @param l la ligne de la case
+     * @param c la colonne de la case
+     * @param numero le numéro du joueur actuel
+     * @return true si des pions adverses peuvent être retournés, false sinon.
+     */
     public boolean verifRetourneUnPion(int l, int c, int numero) {
         // Numéro de l'adversaire
         int adversaire = (numero == 1) ? 2 : 1;
@@ -96,6 +117,13 @@ public class Partie {
         return peutRetourner;
     }
 
+    /**
+     * Joue un coup sur le plateau, plaçant ainsi un nouveau pion a l'endroit indiqué,
+     * retournant les pions adverses concernés et mettant a jour les nombres de pions de chaque joueurs.
+     * @param l ligne du coup
+     * @param c colonne du coup
+     * @param numero numero du joueur actuel
+     */
     public void jouerCoup(int l, int c, int numero){
         if(numero==1) nb_jetons_noirs++;
         else nb_jetons_blancs++;
@@ -124,7 +152,6 @@ public class Partie {
                         // Si un pion du joueur initial est trouvé après un ou plusieurs adversaires
                         if (trouveAdversaire) {
                             for (int[] pion : pionsPotentiels) {
-                                System.out.println(pion[0]+" _ "+pion[1]);
                                 retourPion(pion[0],pion[1],numero);
                             }
                         }
@@ -142,6 +169,12 @@ public class Partie {
         }
     }
 
+    /**
+     * Méthode qui change la couleur d'un pion déjà existant sur le plateau, et met a jour les nombres de pions des joueurs.
+     * @param l ligne du pion
+     * @param c colonne du pion
+     * @param numero numéro du joueur ayant retourné le pion
+     */
     public void retourPion(int l, int c, int numero){
         tableau[l][c]=numero;
         if(numero==1) {
@@ -160,27 +193,27 @@ public class Partie {
 
     @Override
     public String toString() {
-        String s="  ";
+        StringBuilder s= new StringBuilder("  ");
         for (int i = 0; i < taille; i++){
-            s+= "   "+(char) ('A' + i) ;
+            s.append("   ").append((char) ('A' + i));
         }
-        s+="\n";
+        s.append("\n");
         for (int i = 0; i < taille; i++) {
-            s+=" "+(i+1)+" ";
+            s.append(" ").append(i + 1).append(" ");
             for (int j = 0; j < taille; j++) {
                 if (tableau[i][j] == 0) {
-                    s+=" \uD83D\uDFE9 ";
+                    s.append(" \uD83D\uDFE9 ");
                 }
                 else if (tableau[i][j] == 2) {
-                    s+=" \u26AA ";
+                    s.append(" \u26AA ");
                 }
                 else if (tableau[i][j] == 1){
-                    s+=" \u26AB ";
+                    s.append(" \u26AB ");
                 }
             }
-            s+="\n";
+            s.append("\n");
         }
-        return s;
+        return s.toString();
     }
 
 }
