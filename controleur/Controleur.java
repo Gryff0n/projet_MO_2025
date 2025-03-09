@@ -32,7 +32,7 @@ public class Controleur {
             String coup;
             while (!partieTerminee){
                 boolean coupValide = false;
-                boolean syntaxeValide = false;
+                boolean syntaxeValide;
                 while (!coupValide) {
                     coup=ihm.demanderCoup(joueurs[joueurCourant-1].getNom() + " ("+ joueurs[joueurCourant-1].getCouleur()+")").trim();
                     syntaxeValide=syntaxCheck(coup);
@@ -137,12 +137,4 @@ public class Controleur {
         return true;
     }
 
-    /**
-     * getter des joueurs de la partie
-     * @param numero le numero du joueur (i.e. 1 pour indiquer le joueur 1)
-     * @return l'objet joueur indiqué
-     */
-    public Joueur getJoueur(int numero){
-        return joueurs[numero-1];
-    }
 }

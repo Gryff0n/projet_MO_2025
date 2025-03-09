@@ -110,11 +110,11 @@ public class Partie {
                     y += dy;
                 }
                 if (peutRetourner) {
-                    return peutRetourner;
+                    return true;
                 }
             }
         }
-        return peutRetourner;
+        return false;
     }
 
     /**
