@@ -46,8 +46,13 @@ public class Controleur {
             while (!partieTerminee){
                 if (IA && joueurCourant==2) {
                     int[] c = coupAleatoire(partie);
-                    partie.jouerCoup(c[0],c[1], 2);
-                    ihm.afficher("L'ordinateur a joué " + coupIA(c));
+                    if (c[0]==-1) {
+                        ihm.afficher("L'ordinateur a passé son tour.");
+                    }
+                    else {
+                        partie.jouerCoup(c[0],c[1], 2);
+                        ihm.afficher("L'ordinateur a joué " + coupIA(c));
+                    }
                 }
                 else {
                     boolean coupValide = false;
@@ -172,6 +177,9 @@ public class Controleur {
                     coupPotentiels.add(new int[]{i,j});
                 }
             }
+        }
+        if (coupPotentiels.size()==0) {
+            return new int[]{-1};
         }
         int x = new Random().nextInt(coupPotentiels.size());
         return coupPotentiels.get(x);
