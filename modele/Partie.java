@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Partie {
-    private int taille = 4;
+    private int taille = 8;
     private int[][] tableau = new int[taille][taille];
     private int nb_jetons_blancs =2;
     private int nb_jetons_noirs = 2;
