@@ -45,9 +45,9 @@ public class Controleur {
             String coup;
             while (!partieTerminee){
                 if (IA && joueurCourant==2) {
-                    int[] c = coupAléatoire(partie);
+                    int[] c = coupAleatoire(partie);
                     partie.jouerCoup(c[0],c[1], 2);
-                    ihm.afficher("L'ordinateur a joué" + coupIA(c));
+                    ihm.afficher("L'ordinateur a joué " + coupIA(c));
                 }
                 else {
                     boolean coupValide = false;
@@ -164,7 +164,7 @@ public class Controleur {
         return true;
     }
 
-    public int[] coupAléatoire(Partie partie) {
+    public int[] coupAleatoire(Partie partie) {
         List<int[]> coupPotentiels = new ArrayList<>();
         for (int i = 0; i < partie.getTaille(); i++) {
             for (int j = 0; j < partie.getTaille(); j++) {

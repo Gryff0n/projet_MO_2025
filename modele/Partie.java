@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Partie {
-    private int taille = 8;
+    private int taille = 4;
     private int[][] tableau = new int[taille][taille];
     private int nb_jetons_blancs =2;
     private int nb_jetons_noirs = 2;
 
     /**
-     * méthode d'initialisation d'une partie de la session. Créer la disposition initiale du plateau d'othello.
+     * Méthode d'initialisation d'une partie de la session. Créer la disposition initiale du plateau d'othello.
      */
     public void initialiser(){
         for(int i = 0; i < taille; i++){
