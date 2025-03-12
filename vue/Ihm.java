@@ -23,4 +23,9 @@ public class Ihm {
         System.out.println("Voulez vous redémarrer une partie (Y/N) ?\n>>>");
         return sc.nextLine();
     }
+
+    public String demanderIA() {
+        System.out.println("Voulez vous jouez contre l'ordinateur (Y/N) ?\n>>>");
+        return sc.nextLine();
+    }
 }

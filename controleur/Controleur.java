@@ -25,7 +25,17 @@ public class Controleur {
      */
     public void jouer() {
         create(ihm.demanderNomJoueur(nbJoueurs + 1),"Noire");
-        create(ihm.demanderNomJoueur(nbJoueurs + 1),"Blanc");
+        String demandia="";
+        boolean IA = false;
+        while (!(demandia.equals("N"))&&!(demandia.equals("Y")))
+            demandia=ihm.demanderIA();
+        if (demandia.equals("N")) {
+            create(ihm.demanderNomJoueur(nbJoueurs + 1),"Blanc");
+        }
+        else {
+            create("IA","Blanc");
+            IA = true;
+        }
         boolean fini = false;
         while (!fini) {
             Partie partie = new Partie();
@@ -34,31 +44,39 @@ public class Controleur {
             boolean partieTerminee = false;
             String coup;
             while (!partieTerminee){
-                boolean coupValide = false;
-                boolean syntaxeValide;
-                while (!coupValide) {
-                    coup=ihm.demanderCoup(joueurs[joueurCourant-1].getNom() + " ("+ joueurs[joueurCourant-1].getCouleur()+")").trim();
-                    syntaxeValide=syntaxCheck(coup);
-                    if (syntaxeValide) {
-                        if (coup.charAt(0) == 'P'){
-                            coupValide = partie.coupImpossible(joueurCourant);
-                            if(!coupValide){
-                                ihm.afficher("Il vous reste des coups a jouer !");
-                            }
-                        }
-                        else {
-                            int l = Integer.parseInt(coup.substring(0,1))-1;
-                            int c = Character.getNumericValue(coup.charAt(2))-10;
-                            coupValide = partie.coupValide(l,c, joueurCourant);
-                            if (coupValide) {
-                                partie.jouerCoup(l,c,joueurCourant);
+                if (IA && joueurCourant==2) {
+                    int[] c = coupAléatoire(partie);
+                    partie.jouerCoup(c[0],c[1], 2);
+                    ihm.afficher("L'ordinateur a joué" + coupIA(c));
+                }
+                else {
+                    boolean coupValide = false;
+                    boolean syntaxeValide;
+                    while (!coupValide) {
+                        coup=ihm.demanderCoup(joueurs[joueurCourant-1].getNom() + " ("+ joueurs[joueurCourant-1].getCouleur()+")").trim();
+                        syntaxeValide=syntaxCheck(coup);
+                        if (syntaxeValide) {
+                            if (coup.charAt(0) == 'P'){
+                                coupValide = partie.coupImpossible(joueurCourant);
+                                if(!coupValide){
+                                    ihm.afficher("Il vous reste des coups a jouer !");
+                                }
                             }
                             else {
-                                ihm.afficher("Coup illégal !");
+                                int l = Integer.parseInt(coup.substring(0,1))-1;
+                                int c = Character.getNumericValue(coup.charAt(2))-10;
+                                coupValide = partie.coupValide(l,c, joueurCourant);
+                                if (coupValide) {
+                                    partie.jouerCoup(l,c,joueurCourant);
+                                }
+                                else {
+                                    ihm.afficher("Coup illégal !");
+                                }
                             }
                         }
                     }
                 }
+
                 joueurCourant = joueurCourant % 2 + 1;
                 ihm.afficher(partie.toString());
                 if((partie.coupImpossible(1) && partie.coupImpossible(2)) || partie.getNb_jetons_plateau()[0]+partie.getNb_jetons_plateau()[1]==64 ){
@@ -107,6 +125,12 @@ public class Controleur {
     public void create(String nomJoueur, String couleur) {
         joueurs[nbJoueurs]=(new Joueur(nomJoueur,couleur));
         nbJoueurs++;
+    }
+
+    public String coupIA(int[] coup) {
+        String ligne = String.valueOf(coup[0]+1);
+        String colonne = String.valueOf((char) (coup[1]+65));
+        return ligne + " " + colonne;
     }
 
     /**
