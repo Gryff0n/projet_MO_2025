@@ -216,4 +216,8 @@ public class Partie {
         return s.toString();
     }
 
+    public int getTaille() {
+        return taille;
+    }
+
 }
