@@ -1,5 +1,7 @@
 package controleur;
 
+import modele.IA.Aleatoire;
+import modele.IA.StrategiesIA;
 import modele.Joueur;
 import modele.Partie;
 import vue.Ihm;
@@ -24,6 +26,7 @@ public class Controleur {
         create(ihm.demanderNomJoueur(nbJoueurs + 1),"Noire");
         String demandia="";
         boolean IA = false;
+        StrategiesIA strat = new Aleatoire();
         while (!(demandia.equals("N"))&&!(demandia.equals("Y")))
             demandia=ihm.demanderIA();
         if (demandia.equals("N")) {
@@ -42,7 +45,7 @@ public class Controleur {
             String coup;
             while (!partieTerminee){
                 if (IA && joueurCourant==2) {
-                    int[] c = coupAleatoire(partie);
+                    int[] c = strat.appliquerStrategie(partie);
                     if (c[0]==-1) {
                         ihm.afficher("L'ordinateur a passé son tour.");
                     }
@@ -166,14 +169,5 @@ public class Controleur {
         return true;
     }
 
-    public int[] coupAleatoire(Partie partie) {
-        List<int[]> coupsPotentiels;
-        coupsPotentiels=partie.coupsPotentiels();
-        if (coupsPotentiels.isEmpty()) {
-            return new int[]{-1};
-        }
-        int x = new Random().nextInt(coupsPotentiels.size());
-        return coupsPotentiels.get(x);
-    }
 
 }
