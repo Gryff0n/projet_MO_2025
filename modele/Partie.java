@@ -1,21 +1,23 @@
 package modele;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Partie {
     private int taille = 8;
     private int[][] tableau = new int[taille][taille];
     private int nb_jetons_blancs =2;
     private int nb_jetons_noirs = 2;
+    private Map<List<int[]>, Integer> valeurs = new HashMap<>();
 
     /**
      * Méthode d'initialisation d'une partie de la session. Créer la disposition initiale du plateau d'othello.
      */
     public void initialiser(){
+        int[][] coins = {{0,0},{0,taille},{taille,0},{taille,taille}};
         for(int i = 0; i < taille; i++){
             for(int j = 0; j < taille; j++){
+                int [] courant = {i,j};
+                String arrayStr = Arrays.deepToString(coins);
                 if ((i==(taille-1)/2 && j==(taille-1)/2)||(i==(taille-1)/2+1 && j==(taille-1)/2+1)){
                     tableau[i][j]=2;
                 }
@@ -25,8 +27,18 @@ public class Partie {
                 else {
                     tableau[i][j]=0;
                 }
+                if(arrayStr.contains(Arrays.toString(courant))) {
+                    valeurs.put(List.of(courant),11);
+                }
+                if((i==0 || j == 0 || i == taille || j == taille) && !(arrayStr.contains(Arrays.toString(courant)))){
+                    valeurs.put(List.of(courant),6);
+                }
+                else {
+                    valeurs.put(List.of(courant),1);
+                }
             }
         }
+        System.out.println(valeurs);
     }
 
     /**
@@ -230,6 +242,37 @@ public class Partie {
         }
         return s.toString();
     }
+
+    public int getValeur(int nbJoueur) {
+        int nb_noirs = 0;
+        int nb_blancs = 0;
+        if (coupImpossible(nbJoueur)&& coupImpossible((nbJoueur%2)+1)) {
+            if ((nb_jetons_noirs > nb_jetons_blancs && nbJoueur == 1) || (nb_jetons_blancs > nb_jetons_noirs && nbJoueur == 2)) {
+                return 1000;
+            }
+            if ((nb_jetons_noirs > nb_jetons_blancs && nbJoueur == 2) || (nb_jetons_blancs > nb_jetons_noirs && nbJoueur == 1)) {
+                return -1000;
+            }
+
+        }
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                if(tableau[i][j] == 1){
+                    nb_noirs+=valeurs.get(List.of(i,j));
+                }
+                else if(tableau[i][j] == 2){
+                    nb_blancs+=valeurs.get(List.of(i,j));
+                }
+            }
+        }
+        if(nbJoueur==1) {
+            return nb_noirs;
+        }
+        else {
+            return nb_blancs;
+        }
+    }
+
 
     public int getTaille() {
         return taille;
