@@ -1,6 +1,7 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Partie {
@@ -124,7 +125,7 @@ public class Partie {
      * @param c colonne du coup
      * @param numero numero du joueur actuel
      */
-    public void jouerCoup(int l, int c, int numero){
+    public List<int[]> jouerCoup(int l, int c, int numero){
         if(numero==1) nb_jetons_noirs++;
         else nb_jetons_blancs++;
         tableau[l][c]=numero;
@@ -154,6 +155,7 @@ public class Partie {
                             for (int[] pion : pionsPotentiels) {
                                 retourPion(pion[0],pion[1],numero);
                             }
+                            return pionsPotentiels;
                         }
                         break;
                     } else if (tableau[x][y] == adversaire) {
@@ -167,6 +169,7 @@ public class Partie {
                 }
             }
         }
+        return Collections.emptyList();
     }
 
     /**
