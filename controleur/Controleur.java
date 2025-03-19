@@ -4,10 +4,7 @@ import modele.Joueur;
 import modele.Partie;
 import vue.Ihm;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class Controleur {
     private Ihm ihm;
@@ -170,19 +167,13 @@ public class Controleur {
     }
 
     public int[] coupAleatoire(Partie partie) {
-        List<int[]> coupPotentiels = new ArrayList<>();
-        for (int i = 0; i < partie.getTaille(); i++) {
-            for (int j = 0; j < partie.getTaille(); j++) {
-                if (partie.coupValide(i,j, 2)){
-                    coupPotentiels.add(new int[]{i,j});
-                }
-            }
-        }
-        if (coupPotentiels.size()==0) {
+        List<int[]> coupsPotentiels;
+        coupsPotentiels=partie.coupsPotentiels();
+        if (coupsPotentiels.isEmpty()) {
             return new int[]{-1};
         }
-        int x = new Random().nextInt(coupPotentiels.size());
-        return coupPotentiels.get(x);
+        int x = new Random().nextInt(coupsPotentiels.size());
+        return coupsPotentiels.get(x);
     }
 
 }

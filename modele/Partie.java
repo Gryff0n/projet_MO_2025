@@ -187,6 +187,18 @@ public class Partie {
         }
     }
 
+    public List<int[]> coupsPotentiels(){
+        List<int[]> coupPotentiels = new ArrayList<>();
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                if (coupValide(i,j, 2)){
+                    coupPotentiels.add(new int[]{i,j});
+                }
+            }
+        }
+        return coupPotentiels;
+    }
+
     public int[] getNb_jetons_plateau() {
         return new int[]{nb_jetons_noirs, nb_jetons_blancs};
     }
