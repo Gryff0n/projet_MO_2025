@@ -9,7 +9,7 @@ public class Aleatoire implements StrategiesIA {
 
     public int[] appliquerStrategie(Partie partie) {
         List<int[]> coupsPotentiels;
-        coupsPotentiels=partie.coupsPotentiels();
+        coupsPotentiels=partie.coupsPotentiels(2);
         if (coupsPotentiels.isEmpty()) {
             return new int[]{-1};
         }

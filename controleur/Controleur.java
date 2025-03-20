@@ -1,6 +1,7 @@
 package controleur;
 
 import modele.IA.Aleatoire;
+import modele.IA.MiniMax;
 import modele.IA.StrategiesIA;
 import modele.Joueur;
 import modele.Partie;
@@ -26,7 +27,7 @@ public class Controleur {
         create(ihm.demanderNomJoueur(nbJoueurs + 1),"Noire");
         String demandia="";
         boolean IA = false;
-        StrategiesIA strat = new Aleatoire();
+        StrategiesIA strat = new MiniMax();
         while (!(demandia.equals("N"))&&!(demandia.equals("Y")))
             demandia=ihm.demanderIA();
         if (demandia.equals("N")) {

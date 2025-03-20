@@ -7,6 +7,7 @@ public class Partie {
     private int[][] tableau = new int[taille][taille];
     private int nb_jetons_blancs =2;
     private int nb_jetons_noirs = 2;
+    private int[][] tableauValeur = new int[taille][taille];
     private Map<List<int[]>, Integer> valeurs = new HashMap<>();
 
     /**
@@ -27,18 +28,43 @@ public class Partie {
                 else {
                     tableau[i][j]=0;
                 }
-                if(arrayStr.contains(Arrays.toString(courant))) {
-                    valeurs.put(List.of(courant),11);
+                if( (i == 0 || i == taille - 1) && (j == 0 || j == taille - 1) ) {
+
+                    tableauValeur[i][j]=11;
                 }
-                if((i==0 || j == 0 || i == taille || j == taille) && !(arrayStr.contains(Arrays.toString(courant)))){
-                    valeurs.put(List.of(courant),6);
+                else if(i == 0 || i == taille - 1 || j == 0 || j == taille - 1){
+                    tableauValeur[i][j]=6;
                 }
                 else {
-                    valeurs.put(List.of(courant),1);
+                    tableauValeur[i][j]=1;
                 }
             }
-        }
-        System.out.println(valeurs);
+        };
+    }
+
+    public Partie copie(){
+        Partie partieClone = new Partie();
+        partieClone.setTableau(tableauValeur);
+        partieClone.setNb_jetons_blancs(nb_jetons_blancs);
+        partieClone.setNb_jetons_noirs(nb_jetons_noirs);
+        partieClone.setTableauValeur(tableauValeur);
+        return partieClone;
+    }
+
+    public void setTableau(int[][] tableau) {
+        this.tableau = tableau;
+    }
+
+    public void setNb_jetons_blancs(int nb_jetons_blancs) {
+        this.nb_jetons_blancs = nb_jetons_blancs;
+    }
+
+    public void setNb_jetons_noirs(int nb_jetons_noirs) {
+        this.nb_jetons_noirs = nb_jetons_noirs;
+    }
+
+    public void setTableauValeur(int[][] tableauValeur) {
+        this.tableauValeur = tableauValeur;
     }
 
     /**
@@ -202,11 +228,11 @@ public class Partie {
         }
     }
 
-    public List<int[]> coupsPotentiels(){
+    public List<int[]> coupsPotentiels(int numero){
         List<int[]> coupPotentiels = new ArrayList<>();
         for (int i = 0; i < taille; i++) {
             for (int j = 0; j < taille; j++) {
-                if (coupValide(i,j, 2)){
+                if (coupValide(i,j, numero)){
                     coupPotentiels.add(new int[]{i,j});
                 }
             }
@@ -258,10 +284,10 @@ public class Partie {
         for (int i = 0; i < taille; i++) {
             for (int j = 0; j < taille; j++) {
                 if(tableau[i][j] == 1){
-                    nb_noirs+=valeurs.get(List.of(i,j));
+                    nb_noirs+=tableauValeur[i][j];
                 }
                 else if(tableau[i][j] == 2){
-                    nb_blancs+=valeurs.get(List.of(i,j));
+                    nb_blancs+=tableauValeur[i][j];
                 }
             }
         }
