@@ -8,17 +8,13 @@ public class Partie {
     private int nb_jetons_blancs =2;
     private int nb_jetons_noirs = 2;
     private int[][] tableauValeur = new int[taille][taille];
-    private Map<List<int[]>, Integer> valeurs = new HashMap<>();
 
     /**
      * Méthode d'initialisation d'une partie de la session. Créer la disposition initiale du plateau d'othello.
      */
     public void initialiser(){
-        int[][] coins = {{0,0},{0,taille},{taille,0},{taille,taille}};
         for(int i = 0; i < taille; i++){
             for(int j = 0; j < taille; j++){
-                int [] courant = {i,j};
-                String arrayStr = Arrays.deepToString(coins);
                 if ((i==(taille-1)/2 && j==(taille-1)/2)||(i==(taille-1)/2+1 && j==(taille-1)/2+1)){
                     tableau[i][j]=2;
                 }
@@ -272,7 +268,7 @@ public class Partie {
     public int getValeur(int nbJoueur) {
         int nb_noirs = 0;
         int nb_blancs = 0;
-        if (coupImpossible(nbJoueur)&& coupImpossible((nbJoueur%2)+1)) {
+        if (coupImpossible(1)&& coupImpossible(2)) {
             if ((nb_jetons_noirs > nb_jetons_blancs && nbJoueur == 1) || (nb_jetons_blancs > nb_jetons_noirs && nbJoueur == 2)) {
                 return 1000;
             }
