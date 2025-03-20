@@ -84,8 +84,8 @@ public class Controleur {
                 }
                 joueurCourant = joueurCourant % 2 + 1;
                 ihm.afficher(partie.toString());
-                ihm.afficher("valeur des pions noirs : "+String.valueOf(partie.getValeur(1)));
-                ihm.afficher("valeur des pions blancs : "+String.valueOf(partie.getValeur(2)));
+                ihm.afficher("valeur des pions noirs : "+partie.getValeur(1));
+                ihm.afficher("valeur des pions blancs : "+partie.getValeur(2));
                 if((partie.coupImpossible(1) && partie.coupImpossible(2)) || partie.getNb_jetons_plateau()[0]+partie.getNb_jetons_plateau()[1]==64 ){
                     partieTerminee=true;
                 }

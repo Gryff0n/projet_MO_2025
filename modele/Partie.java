@@ -38,12 +38,24 @@ public class Partie {
         };
     }
 
-    public Partie copie(){
+    public Partie copier(){
         Partie partieClone = new Partie();
-        partieClone.setTableau(tableauValeur);
+        int[][] tab = new int[taille][taille];
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                tab[i][j]=tableau[i][j];
+            }
+        }
+        partieClone.setTableau(tab);
         partieClone.setNb_jetons_blancs(nb_jetons_blancs);
         partieClone.setNb_jetons_noirs(nb_jetons_noirs);
-        partieClone.setTableauValeur(tableauValeur);
+        int[][] tabV= new int[taille][taille];
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                tabV[i][j]=tableauValeur[i][j];
+            }
+        }
+        partieClone.setTableauValeur(tabV);
         return partieClone;
     }
 
@@ -159,7 +171,7 @@ public class Partie {
      * @param c colonne du coup
      * @param numero numero du joueur actuel
      */
-    public List<int[]> jouerCoup(int l, int c, int numero){
+    public void jouerCoup(int l, int c, int numero){
         if(numero==1) nb_jetons_noirs++;
         else nb_jetons_blancs++;
         tableau[l][c]=numero;
@@ -189,7 +201,6 @@ public class Partie {
                             for (int[] pion : pionsPotentiels) {
                                 retourPion(pion[0],pion[1],numero);
                             }
-                            return pionsPotentiels;
                         }
                         break;
                     } else if (tableau[x][y] == adversaire) {
@@ -203,7 +214,6 @@ public class Partie {
                 }
             }
         }
-        return Collections.emptyList();
     }
 
     /**
@@ -294,8 +304,7 @@ public class Partie {
             return nb_blancs;
         }
     }
-
-
+    
     public int getTaille() {
         return taille;
     }
