@@ -27,7 +27,8 @@ public class Controleur {
         create(ihm.demanderNomJoueur(nbJoueurs + 1),"Noire");
         String demandia="";
         boolean IA = false;
-        StrategiesIA strat = new MiniMax();
+        StrategiesIA strat = null;
+        Integer demandStrat = 0;
         while (!(demandia.equals("N"))&&!(demandia.equals("Y")))
             demandia=ihm.demanderIA();
         if (demandia.equals("N")) {
@@ -36,6 +37,14 @@ public class Controleur {
         else {
             create("IA","Blanc");
             IA = true;
+            while (demandStrat !=1 && demandStrat !=2)
+                demandStrat = ihm.demanderStratIA();
+            if (demandStrat==1) {
+                strat = new Aleatoire();
+            }
+            else {
+                strat = new MiniMax();
+            }
         }
         boolean fini = false;
         while (!fini) {
@@ -84,8 +93,6 @@ public class Controleur {
                 }
                 joueurCourant = joueurCourant % 2 + 1;
                 ihm.afficher(partie.toString());
-                ihm.afficher("valeur des pions noirs : "+partie.getValeur(1));
-                ihm.afficher("valeur des pions blancs : "+partie.getValeur(2));
                 if((partie.coupImpossible(1) && partie.coupImpossible(2)) || partie.getNb_jetons_plateau()[0]+partie.getNb_jetons_plateau()[1]==64 ){
                     partieTerminee=true;
                 }

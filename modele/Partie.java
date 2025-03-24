@@ -304,9 +304,6 @@ public class Partie {
             return nb_blancs;
         }
     }
-    
-    public int getTaille() {
-        return taille;
-    }
+
 
 }

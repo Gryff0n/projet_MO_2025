@@ -28,4 +28,12 @@ public class Ihm {
         System.out.println("Voulez vous jouez contre l'ordinateur (Y/N) ?\n>>>");
         return sc.nextLine();
     }
+
+    public Integer demanderStratIA() {
+        System.out.println("Quelle stratégie voulez-vous que l'ordinateur utilise (1/2) ?\n 1 - Random \n 2 - MiniMax\n>>>");
+        while(!sc.hasNextInt()) {
+            sc.nextLine();
+        };
+        return sc.nextInt();
+    }
 }
