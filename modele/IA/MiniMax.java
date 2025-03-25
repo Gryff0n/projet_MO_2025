@@ -6,6 +6,13 @@ import java.util.*;
 
 public class MiniMax implements StrategiesIA {
 
+    /**
+     * application de la stratégie MiniMax de l'IA qui choisi un coup en fonction de l'apport de point le plus haut possible
+     * pour l'IA et le plus bas possible pour le Joueur adverse, en fonction d'une pondération donné pour chaque position sur le
+     * plateau de jeu.
+     * @param partie la partie en son état actuel
+     * @return le coup choisi par l'IA sous la forme de coordonnées {i,j}
+     */
     public int[] appliquerStrategie(Partie partie) {
         Map<Integer,int[]> meilleursCoups = new HashMap<>();
         List<int[]> coupsPotentiels = partie.coupsPotentiels(2);
@@ -26,7 +33,7 @@ public class MiniMax implements StrategiesIA {
         }
         int maximum = -10000;
         int[] meilleurCoup = {-1};
-        for (Integer key : meilleursCoups.keySet()) {;
+        for (Integer key : meilleursCoups.keySet()) {
             int[] coup = meilleursCoups.get(key);
             if(key > maximum){
                 maximum = key;

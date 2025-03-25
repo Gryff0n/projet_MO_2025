@@ -35,45 +35,30 @@ public class Partie {
                     tableauValeur[i][j]=1;
                 }
             }
-        };
+        }
     }
 
+    /**
+     * créé un clone a l'identique du plateau actuel
+     * @return le clone de la Partie
+     */
     public Partie copier(){
         Partie partieClone = new Partie();
         int[][] tab = new int[taille][taille];
         for (int i = 0; i < taille; i++) {
-            for (int j = 0; j < taille; j++) {
-                tab[i][j]=tableau[i][j];
-            }
+            System.arraycopy(tableau[i], 0, tab[i], 0, taille);
         }
         partieClone.setTableau(tab);
         partieClone.setNb_jetons_blancs(nb_jetons_blancs);
         partieClone.setNb_jetons_noirs(nb_jetons_noirs);
         int[][] tabV= new int[taille][taille];
         for (int i = 0; i < taille; i++) {
-            for (int j = 0; j < taille; j++) {
-                tabV[i][j]=tableauValeur[i][j];
-            }
+            System.arraycopy(tableauValeur[i], 0, tabV[i], 0, taille);
         }
         partieClone.setTableauValeur(tabV);
         return partieClone;
     }
 
-    public void setTableau(int[][] tableau) {
-        this.tableau = tableau;
-    }
-
-    public void setNb_jetons_blancs(int nb_jetons_blancs) {
-        this.nb_jetons_blancs = nb_jetons_blancs;
-    }
-
-    public void setNb_jetons_noirs(int nb_jetons_noirs) {
-        this.nb_jetons_noirs = nb_jetons_noirs;
-    }
-
-    public void setTableauValeur(int[][] tableauValeur) {
-        this.tableauValeur = tableauValeur;
-    }
 
     /**
      * Verifie si aucun coup possible autour d'un pion adverse.
@@ -234,6 +219,11 @@ public class Partie {
         }
     }
 
+    /**
+     * trouve les coordonnées de coups potentiels pour un joueur donné au tour actuel
+     * @param numero le numero du joueur concerné
+     * @return la liste des coordonnées des coups possibles sur le plateau
+     */
     public List<int[]> coupsPotentiels(int numero){
         List<int[]> coupPotentiels = new ArrayList<>();
         for (int i = 0; i < taille; i++) {
@@ -246,35 +236,11 @@ public class Partie {
         return coupPotentiels;
     }
 
-    public int[] getNb_jetons_plateau() {
-        return new int[]{nb_jetons_noirs, nb_jetons_blancs};
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder s= new StringBuilder("  ");
-        for (int i = 0; i < taille; i++){
-            s.append("   ").append((char) ('A' + i));
-        }
-        s.append("\n");
-        for (int i = 0; i < taille; i++) {
-            s.append(" ").append(i + 1).append(" ");
-            for (int j = 0; j < taille; j++) {
-                if (tableau[i][j] == 0) {
-                    s.append(" \uD83D\uDFE9 ");
-                }
-                else if (tableau[i][j] == 2) {
-                    s.append(" \u26AA ");
-                }
-                else if (tableau[i][j] == 1){
-                    s.append(" \u26AB ");
-                }
-            }
-            s.append("\n");
-        }
-        return s.toString();
-    }
-
+    /**
+     * renvoi la valeur des pions d'un joueur donné en l'état actuel du plateau
+     * @param nbJoueur le numéro du joueur concerné
+     * @return la valeur de ses pions
+     */
     public int getValeur(int nbJoueur) {
         int nb_noirs = 0;
         int nb_blancs = 0;
@@ -304,6 +270,52 @@ public class Partie {
             return nb_blancs;
         }
     }
+
+    public int[] getNb_jetons_plateau() {
+        return new int[]{nb_jetons_noirs, nb_jetons_blancs};
+    }
+
+    public void setTableau(int[][] tableau) {
+        this.tableau = tableau;
+    }
+
+    public void setNb_jetons_blancs(int nb_jetons_blancs) {
+        this.nb_jetons_blancs = nb_jetons_blancs;
+    }
+
+    public void setNb_jetons_noirs(int nb_jetons_noirs) {
+        this.nb_jetons_noirs = nb_jetons_noirs;
+    }
+
+    public void setTableauValeur(int[][] tableauValeur) {
+        this.tableauValeur = tableauValeur;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s= new StringBuilder("  ");
+        for (int i = 0; i < taille; i++){
+            s.append("   ").append((char) ('A' + i));
+        }
+        s.append("\n");
+        for (int i = 0; i < taille; i++) {
+            s.append(" ").append(i + 1).append(" ");
+            for (int j = 0; j < taille; j++) {
+                if (tableau[i][j] == 0) {
+                    s.append(" \uD83D\uDFE9 ");
+                }
+                else if (tableau[i][j] == 2) {
+                    s.append(" \u26AA ");
+                }
+                else if (tableau[i][j] == 1){
+                    s.append(" \u26AB ");
+                }
+            }
+            s.append("\n");
+        }
+        return s.toString();
+    }
+
 
 
 }

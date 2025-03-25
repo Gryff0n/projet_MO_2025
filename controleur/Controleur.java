@@ -141,6 +141,11 @@ public class Controleur {
         nbJoueurs++;
     }
 
+    /**
+     * retransforme un coup joué par l'IA dans la syntaxe ligne : chiffre et colonne : lettre
+     * @param coup le coup de l'IA sous forme de coordonées {i,j}
+     * @return un string du coup de l'IA sous forme "Chiffre Lettre"
+     */
     public String coupIA(int[] coup) {
         String ligne = String.valueOf(coup[0]+1);
         String colonne = String.valueOf((char) (coup[1]+65));

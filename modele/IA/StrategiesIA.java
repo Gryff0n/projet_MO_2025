@@ -4,6 +4,6 @@ import modele.Partie;
 
 public interface StrategiesIA {
 
-    public int[] appliquerStrategie(Partie partie) ;
+    int[] appliquerStrategie(Partie partie) ;
 
 }
