@@ -53,6 +53,7 @@ public class Controleur {
             ihm.afficher(partie.toString());
             boolean partieTerminee = false;
             String coup;
+            joueurCourant = 1;
             while (!partieTerminee){
                 if (IA && joueurCourant==2) {
                     int[] c = strat.appliquerStrategie(partie);

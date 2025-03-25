@@ -14,7 +14,8 @@ public class MiniMax implements StrategiesIA {
      * @return le coup choisi par l'IA sous la forme de coordonnées {i,j}
      */
     public int[] appliquerStrategie(Partie partie) {
-        Map<Integer,int[]> meilleursCoups = new HashMap<>();
+        int maximum = -10000;
+        int[] meilleurCoup = {-1};
         List<int[]> coupsPotentiels = partie.coupsPotentiels(2);
         for(int[] coup : coupsPotentiels){
             int min =10000;
@@ -29,14 +30,8 @@ public class MiniMax implements StrategiesIA {
                     min = score;
                 }
             }
-            meilleursCoups.put(min,coup);
-        }
-        int maximum = -10000;
-        int[] meilleurCoup = {-1};
-        for (Integer key : meilleursCoups.keySet()) {
-            int[] coup = meilleursCoups.get(key);
-            if(key > maximum){
-                maximum = key;
+            if (min > maximum) {
+                maximum = min;
                 meilleurCoup = coup;
             }
         }
