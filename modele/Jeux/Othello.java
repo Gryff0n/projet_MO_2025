@@ -3,12 +3,11 @@ package modele.Jeux;
 import java.util.*;
 
 public class Othello implements Jeux{
-    private int taille = 8;
+    private final int taille = 8;
     private int[][] tableau = new int[taille][taille];
     private int nb_jetons_blancs =2;
     private int nb_jetons_noirs = 2;
     private int[][] tableauValeur = new int[taille][taille];
-    private String messageDemanderCoup = "(ex: '1 A' ou 'P' pour passer son tour si aucun coup possible)" ;
 
     /**
      * Méthode d'initialisation d'une partie de la session. Créer la disposition initiale du plateau d'othello.
@@ -336,6 +335,7 @@ public class Othello implements Jeux{
     }
 
     public String getMessageDemanderCoup() {
+        String messageDemanderCoup = "(ex: '1 A' ou 'P' pour passer son tour si aucun coup possible)";
         return messageDemanderCoup;
     }
 
