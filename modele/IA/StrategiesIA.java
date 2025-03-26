@@ -1,9 +1,12 @@
 package modele.IA;
 
-import modele.Partie;
+import modele.Jeux.Jeux;
+import modele.Jeux.Othello;
 
 public interface StrategiesIA {
 
-    int[] appliquerStrategie(Partie partie) ;
+    int[] appliquerStrategie(Othello othello) ;
+
+
 
 }

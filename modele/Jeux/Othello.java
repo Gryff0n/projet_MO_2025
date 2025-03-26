@@ -1,13 +1,14 @@
-package modele;
+package modele.Jeux;
 
 import java.util.*;
 
-public class Partie {
+public class Othello implements Jeux{
     private int taille = 8;
     private int[][] tableau = new int[taille][taille];
     private int nb_jetons_blancs =2;
     private int nb_jetons_noirs = 2;
     private int[][] tableauValeur = new int[taille][taille];
+    private String messageDemanderCoup = "(ex: '1 A' ou 'P' pour passer son tour si aucun coup possible)" ;
 
     /**
      * Méthode d'initialisation d'une partie de la session. Créer la disposition initiale du plateau d'othello.
@@ -36,27 +37,29 @@ public class Partie {
                 }
             }
         }
+        nb_jetons_blancs =2;
+        nb_jetons_noirs = 2;
     }
 
     /**
      * créé un clone a l'identique du plateau actuel
      * @return le clone de la Partie
      */
-    public Partie copier(){
-        Partie partieClone = new Partie();
+    public Othello copier(){
+        Othello othelloClone = new Othello();
         int[][] tab = new int[taille][taille];
         for (int i = 0; i < taille; i++) {
             System.arraycopy(tableau[i], 0, tab[i], 0, taille);
         }
-        partieClone.setTableau(tab);
-        partieClone.setNb_jetons_blancs(nb_jetons_blancs);
-        partieClone.setNb_jetons_noirs(nb_jetons_noirs);
+        othelloClone.setTableau(tab);
+        othelloClone.setNb_jetons_blancs(nb_jetons_blancs);
+        othelloClone.setNb_jetons_noirs(nb_jetons_noirs);
         int[][] tabV= new int[taille][taille];
         for (int i = 0; i < taille; i++) {
             System.arraycopy(tableauValeur[i], 0, tabV[i], 0, taille);
         }
-        partieClone.setTableauValeur(tabV);
-        return partieClone;
+        othelloClone.setTableauValeur(tabV);
+        return othelloClone;
     }
 
 
@@ -271,6 +274,47 @@ public class Partie {
         }
     }
 
+    /**
+     * méthode de vérification de la synatxe du coup rentré par le joueur actuel.
+     * @param coup le coup entré par le joueur
+     * @return true si le coup est valide syntaxiquement, false sinon
+     */
+    public boolean syntaxCheck(String coup) {
+        //vérifie la syntaxe du coup entré par le joueur
+        if (coup.isEmpty() || coup.length() > 3 || coup.length() == 2) {
+            //mauvaise longueur
+            throw new IllegalArgumentException("Mauvaise Syntaxe : Longueur");
+        }
+        else if(coup.length() == 1) {
+            if (coup.charAt(0) != 'P') {
+                //syntaxe du passage de tour incorrecte
+                throw new IllegalArgumentException("Mauvaise Syntaxe : !P");
+            }
+            //passage de tour correct syntaxiquement
+            return true;
+        }
+        char[] charCoup = coup.toCharArray();
+        if (!(Character.isDigit(charCoup[0]) && charCoup[1] == ' ' && Character.isAlphabetic(charCoup[2]))) {
+            //coup de bonne longueur mais mal écrit
+            throw new IllegalArgumentException("Mauvaise Syntaxe : syn");
+        }
+        return true;
+    }
+
+    public int checkVictoire() {
+        if (nb_jetons_noirs > nb_jetons_blancs) {
+            return 1;
+        }
+        else if (nb_jetons_noirs < nb_jetons_blancs) {
+            return 2;
+        }
+        else return 0;
+    }
+
+    public String afficherScore() {
+        return "nombres de jetons noirs : "+ nb_jetons_noirs +"\nnombres de jetons blancs :"+ nb_jetons_blancs;
+    }
+
     public int[] getNb_jetons_plateau() {
         return new int[]{nb_jetons_noirs, nb_jetons_blancs};
     }
@@ -289,6 +333,10 @@ public class Partie {
 
     public void setTableauValeur(int[][] tableauValeur) {
         this.tableauValeur = tableauValeur;
+    }
+
+    public String getMessageDemanderCoup() {
+        return messageDemanderCoup;
     }
 
     @Override

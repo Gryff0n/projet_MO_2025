@@ -13,9 +13,9 @@ public class Ihm {
         System.out.println(message);
     }
 
-    public String demanderCoup(String joueur) {
+    public String demanderCoup(String joueur, String message) {
         System.out.println("Au tour de " + joueur);
-        System.out.println("Entrez un coup (ex: '1 A' ou 'P' pour passer son tour si aucun coup possible) :");
+        System.out.println("Entrez un coup "+message+" :");
         return sc.nextLine();
     }
 
