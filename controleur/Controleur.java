@@ -91,8 +91,7 @@ public class Controleur {
                     boolean coupValide = false;
                     boolean syntaxeValide;
                     while (!coupValide) {
-                        String couleur = (joueurCourant == 1) ? "noir" : "blanc";
-                        coup=ihm.demanderCoup(joueurs[joueurCourant-1].getNom() + " ("+couleur+")", jeux.getMessageDemanderCoup()).trim();
+                        coup=ihm.demanderCoup(joueurs[joueurCourant-1].getNom(), jeux.getMessageDemanderCoup(joueurCourant)).trim();
                         try {
                             syntaxeValide= jeux.syntaxCheck(coup);
                         }

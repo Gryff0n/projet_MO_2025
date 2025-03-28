@@ -18,5 +18,5 @@ public interface Jeux {
 
     String afficherScore();
 
-    String getMessageDemanderCoup();
+    String getMessageDemanderCoup(int numero);
 }

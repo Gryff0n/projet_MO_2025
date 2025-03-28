@@ -330,8 +330,9 @@ public class Othello implements Jeux{
         this.tableauValeur = tableauValeur;
     }
 
-    public String getMessageDemanderCoup() {
-        return "(ex: '1 A' ou 'P' pour passer son tour si aucun coup possible)";
+    public String getMessageDemanderCoup(int numero) {
+        String couleur = (numero == 1) ? "avec les jetons noir" : "avec les jetons blanc";
+        return couleur + " (ex: '1 A' ou 'P' pour passer son tour si aucun coup possible)";
     }
 
     @Override
