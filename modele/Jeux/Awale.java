@@ -20,6 +20,36 @@ public class Awale implements Jeux {
 
     public void jouerCoup(int l, int c, int numero){}
 
+    public int[] getSucc(int[] coup) {
+        if (coup[0] == 0) {
+            if (coup[1]== 0)
+                return new int[]{1,0};
+            else
+                return new int[]{0,coup[1]-1};
+        }
+        else {
+            if(coup[1]==5)
+                return new int[]{0,5};
+            else
+                return new int[]{1,coup[1]+1};
+        }
+    }
+
+    public int[] getPred(int[] coup) {
+        if (coup[0] == 1) {
+            if (coup[1]== 0)
+                return new int[]{0,0};
+            else
+                return new int[]{0,coup[1]+1};
+        }
+        else {
+            if(coup[1]==5)
+                return new int[]{1,5};
+            else
+                return new int[]{1,coup[1]-1};
+        }
+    }
+
     public boolean syntaxCheck(String coup) {
         //vérifie la syntaxe du coup entré par le joueur
         if (coup.length() != 3) {
