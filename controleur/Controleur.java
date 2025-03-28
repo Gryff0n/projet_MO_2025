@@ -3,6 +3,7 @@ package controleur;
 import modele.IA.Aleatoire;
 import modele.IA.MiniMax;
 import modele.IA.StrategiesIA;
+import modele.Jeux.Awale;
 import modele.Jeux.Jeux;
 import modele.Joueur;
 import modele.Jeux.Othello;
@@ -25,29 +26,49 @@ public class Controleur {
      * ainsi que les conditions de fin de partie et de fin de session.
      */
     public void jouer() {
+        //Choix Jeu
         Jeux jeux = new Othello();
+        int game = 0;
+        while (game !=1 && game !=2)
+            game = ihm.demanderJeu();
+        if (game==2) {
+            jeux = new Awale();
+        }
+        //Création Joueur 1
         create(ihm.demanderNomJoueur(nbJoueurs + 1));
+        //Variables IA
         String demandia="";
         boolean IA = false;
         StrategiesIA strat = null;
         Integer demandStrat = 0;
-        while (!(demandia.equals("N"))&&!(demandia.equals("Y")))
-            demandia=ihm.demanderIA();
-        if (demandia.equals("N")) {
+        //Création IA ou joueur 2 si Othello
+        if(game==1) {
+            //Demande IA ou J2
+            while (!(demandia.equals("N"))&&!(demandia.equals("Y")))
+                demandia=ihm.demanderIA();
+            //pas IA, donc J2
+            if (demandia.equals("N")) {
+                create(ihm.demanderNomJoueur(nbJoueurs + 1));
+            }
+            //IA donc choix stratégie
+            else {
+                create("IA");
+                IA = true;
+                while (demandStrat !=1 && demandStrat !=2)
+                    demandStrat = ihm.demanderStratIA();
+                if (demandStrat==1) {
+                    strat = new Aleatoire();
+                }
+                else {
+                    strat = new MiniMax();
+                }
+            }
+        }
+        //J2 car Awale
+        else {
             create(ihm.demanderNomJoueur(nbJoueurs + 1));
         }
-        else {
-            create("IA");
-            IA = true;
-            while (demandStrat !=1 && demandStrat !=2)
-                demandStrat = ihm.demanderStratIA();
-            if (demandStrat==1) {
-                strat = new Aleatoire();
-            }
-            else {
-                strat = new MiniMax();
-            }
-        }
+        //déroulement partie
         boolean fini = false;
         while (!fini) {
             jeux.initialiser();

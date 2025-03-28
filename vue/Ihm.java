@@ -20,20 +20,32 @@ public class Ihm {
     }
 
     public String redemPartie() {
-        System.out.println("Voulez vous redémarrer une partie (Y/N) ?\n>>>");
+        System.out.print("Voulez vous redémarrer une partie (Y/N) ?\n>>>");
         return sc.nextLine();
     }
 
     public String demanderIA() {
-        System.out.println("Voulez vous jouez contre l'ordinateur (Y/N) ?\n>>>");
+        System.out.print("Voulez vous jouez contre l'ordinateur (Y/N) ?\n>>>");
         return sc.nextLine();
     }
 
     public Integer demanderStratIA() {
-        System.out.println("Quelle stratégie voulez-vous que l'ordinateur utilise (1/2) ?\n 1 - Random \n 2 - MiniMax\n>>>");
+        System.out.print("Quelle stratégie voulez-vous que l'ordinateur utilise (1/2) ?\n 1 - Random \n 2 - MiniMax\n>>>");
         while(!sc.hasNextInt()) {
             sc.nextLine();
         }
-        return sc.nextInt();
+        int ans= sc.nextInt();
+        sc.nextLine();
+        return ans;
+    }
+
+    public Integer demanderJeu() {
+        System.out.print("A quel jeu souhaitez-vous jouez ?\n 1 - Othello \n 2 - Awale\n>>>");
+        while(!sc.hasNextInt()) {
+            sc.nextLine();
+        }
+        int ans= sc.nextInt();
+        sc.nextLine();
+        return ans;
     }
 }

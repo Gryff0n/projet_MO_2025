@@ -314,10 +314,6 @@ public class Othello implements Jeux{
         return "nombres de jetons noirs : "+ nb_jetons_noirs +"\nnombres de jetons blancs :"+ nb_jetons_blancs;
     }
 
-    public int[] getNb_jetons_plateau() {
-        return new int[]{nb_jetons_noirs, nb_jetons_blancs};
-    }
-
     public void setTableau(int[][] tableau) {
         this.tableau = tableau;
     }
@@ -335,8 +331,7 @@ public class Othello implements Jeux{
     }
 
     public String getMessageDemanderCoup() {
-        String messageDemanderCoup = "(ex: '1 A' ou 'P' pour passer son tour si aucun coup possible)";
-        return messageDemanderCoup;
+        return "(ex: '1 A' ou 'P' pour passer son tour si aucun coup possible)";
     }
 
     @Override
