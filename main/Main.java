@@ -2,7 +2,6 @@ package main;
 
 import controleur.Controleur;
 import vue.Ihm;
-import modele.Jeux.Awale;
 
 //Itération 1
 
