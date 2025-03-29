@@ -189,7 +189,8 @@ public class Awale implements Jeux {
 
 
     public String toString() {
-        StringBuilder sb = new StringBuilder("\n   A   B   C   D   E   F\n1  ");
+        StringBuilder sb = new StringBuilder("\nJ2 : ").append(grenier[1]).append("\n");
+        sb.append("   A   B   C   D   E   F\n1  ");
         for (int i = 0; i < 6; i++) {
             sb.append(cases[0][i]);
             if (i < 5) sb.append(" | ");  // Ajouter des séparateurs entre les cases
@@ -200,7 +201,7 @@ public class Awale implements Jeux {
             if (i < 5) sb.append(" | ");  // Ajouter des séparateurs entre les cases
         }
         sb.append("\n");
-        sb.append("grenier J1 : ").append(grenier[0]).append("\ngrenier J2 : ").append(grenier[1]).append("\n");
+        sb.append("                    J1 : ").append(grenier[0]).append("\n");
         return sb.toString();
     }
 }
