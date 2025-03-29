@@ -93,7 +93,7 @@ public class Controleur {
                     while (!coupValide) {
                         coup=ihm.demanderCoup(joueurs[joueurCourant-1].getNom(), jeux.getMessageDemanderCoup(joueurCourant)).trim();
                         try {
-                            syntaxeValide= jeux.syntaxCheck(coup);
+                            syntaxeValide= syntaxCheck(coup);
                         }
                         catch (IllegalArgumentException e) {
                             syntaxeValide=false;
@@ -158,6 +158,33 @@ public class Controleur {
             ihm.afficher("------Vainqueur de la session : " + joueurs[1].getNom() + " !!------");
         }
         else ihm.afficher("------Les joueurs sont EX AEQUO !!------");
+    }
+
+    /**
+     * méthode de vérification de la synatxe du coup rentré par le joueur actuel.
+     * @param coup le coup entré par le joueur
+     * @return true si le coup est valide syntaxiquement, false sinon
+     */
+    public boolean syntaxCheck(String coup) {
+        //vérifie la syntaxe du coup entré par le joueur
+        if (coup.isEmpty() || coup.length() > 3 || coup.length() == 2) {
+            //mauvaise longueur
+            throw new IllegalArgumentException("Mauvaise Syntaxe : Longueur");
+        }
+        else if(coup.length() == 1) {
+            if (coup.charAt(0) != 'P') {
+                //syntaxe du passage de tour incorrecte
+                throw new IllegalArgumentException("Mauvaise Syntaxe : !P");
+            }
+            //passage de tour correct syntaxiquement
+            return true;
+        }
+        char[] charCoup = coup.toCharArray();
+        if (!(Character.isDigit(charCoup[0]) && charCoup[1] == ' ' && Character.isAlphabetic(charCoup[2]))) {
+            //coup de bonne longueur mais mal écrit
+            throw new IllegalArgumentException("Mauvaise Syntaxe : syn");
+        }
+        return true;
     }
 
     /**

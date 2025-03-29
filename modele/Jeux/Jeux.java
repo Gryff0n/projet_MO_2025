@@ -8,7 +8,6 @@ public interface Jeux {
 
     void jouerCoup(int l, int c, int numero);
 
-    boolean syntaxCheck(String coup);
 
     boolean coupImpossible(int numero);
 
