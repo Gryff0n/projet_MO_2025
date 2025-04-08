@@ -137,7 +137,7 @@ public class Awale implements Jeux {
      */
     public boolean coupValide(int l, int c, int numero){
         // Si en dehors du plateau
-        if (l < 0 || l > 2 || c < 0 || c > 6) {
+        if (l < 0 || l > 1 || c < 0 || c > 5 || cases[l][c] == 0) {
             return false;
         }
         if (numero == 1 && l == 0 || numero == 2 && l == 1) {
